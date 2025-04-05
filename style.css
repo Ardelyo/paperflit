@@ -1,0 +1,619 @@
+/* style.css - Material Design 3 Redesign (Full with Toolbar & Tools) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap');
+
+/* --- Material 3 Theme Variables (Example: Blue) --- */
+:root {
+    /* Color variables */
+    --md-sys-color-primary: #0B57D0; /* M3 Blue */
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #D3E3FF;
+    --md-sys-color-on-primary-container: #001849;
+    --md-sys-color-secondary: #565E71;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #DAE2F9;
+    --md-sys-color-on-secondary-container: #131C2B;
+    --md-sys-color-tertiary: #715573;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #FBD7FC;
+    --md-sys-color-on-tertiary-container: #2A132D;
+    --md-sys-color-error: #B3261E;
+    --md-sys-color-on-error: #FFFFFF;
+    --md-sys-color-error-container: #F9DEDC;
+    --md-sys-color-on-error-container: #410E0B;
+    --md-sys-color-background: #FEFBFF; /* Slightly off-white */
+    --md-sys-color-on-background: #1B1B1F;
+    --md-sys-color-surface: #FEFBFF; /* Often same as background */
+    --md-sys-color-on-surface: #1B1B1F;
+    --md-sys-color-surface-variant: #E1E2EC; /* For containers on surface */
+    --md-sys-color-on-surface-variant: #44474F; /* Text on surface variant */
+    --md-sys-color-outline: #74777F; /* Borders */
+    --md-sys-color-outline-variant: #C4C6D0; /* Dividers */
+    --md-sys-color-surface-container-highest: #E6E0E9;
+    --md-sys-color-surface-container-high: #eceef3; /* Elevated surfaces */
+    --md-sys-color-surface-container: #f2f2f7; /* Default containers */
+    --md-sys-color-surface-container-low: #f8f9fd; /* Subtle containers */
+    --md-sys-color-surface-container-lowest: #FFFFFF;
+
+
+    /* State Layers */
+    --md-state-opacity-hover: 0.08;
+    --md-state-opacity-focus: 0.12;
+    --md-state-opacity-pressed: 0.12;
+    --md-state-opacity-dragged: 0.16;
+
+    /* Shape */
+    --md-sys-shape-corner-none: 0px;
+    --md-sys-shape-corner-extra-small: 4px;
+    --md-sys-shape-corner-small: 8px;
+    --md-sys-shape-corner-medium: 12px;
+    --md-sys-shape-corner-large: 16px;
+    --md-sys-shape-corner-extra-large: 28px;
+    --md-sys-shape-corner-full: 9999px; /* Pill shape */
+
+    /* Typography */
+    --md-sys-typescale-body-large-font: 'Roboto', sans-serif;
+    --md-sys-typescale-body-large-size: 1rem; /* 16px */
+    --md-sys-typescale-body-large-weight: 400;
+    --md-sys-typescale-body-large-line-height: 1.5rem; /* 24px */
+
+    --md-sys-typescale-body-medium-font: 'Roboto', sans-serif;
+    --md-sys-typescale-body-medium-size: 0.875rem; /* 14px */
+    --md-sys-typescale-body-medium-weight: 400;
+    --md-sys-typescale-body-medium-line-height: 1.25rem; /* 20px */
+
+
+    --md-sys-typescale-label-large-font: 'Roboto', sans-serif;
+    --md-sys-typescale-label-large-size: 0.875rem; /* 14px */
+    --md-sys-typescale-label-large-weight: 500;
+    --md-sys-typescale-label-large-line-height: 1.25rem; /* 20px */
+
+     --md-sys-typescale-title-medium-font: 'Roboto', sans-serif;
+    --md-sys-typescale-title-medium-size: 1rem; /* 16px */
+    --md-sys-typescale-title-medium-weight: 500;
+    --md-sys-typescale-title-medium-line-height: 1.5rem; /* 24px */
+
+     --md-sys-typescale-title-large-font: 'Roboto', sans-serif;
+     --md-sys-typescale-title-large-size: 1.375rem; /* 22px */
+     --md-sys-typescale-title-large-weight: 400;
+     --md-sys-typescale-title-large-line-height: 1.75rem; /* 28px */
+
+
+    /* Writing Font */
+     --app-font-writing: 'Roboto Slab', serif;
+     --app-font-writing-size: 1.125rem; /* 18px */
+     --app-font-writing-line-height: 1.7;
+
+     /* Transitions */
+     --app-transition-duration-short: 150ms;
+     --app-transition-duration-medium: 250ms;
+     --app-transition-duration-long: 350ms;
+     --app-transition-easing: cubic-bezier(0.4, 0, 0.2, 1); /* Material standard easing */
+
+     /* Sidebar Width Variable */
+     --app-sidebar-width: 360px;
+}
+
+/* --- General Styles --- */
+body {
+    margin: 0;
+    font-family: var(--md-sys-typescale-body-large-font);
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    font-size: var(--md-sys-typescale-body-large-size);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+}
+
+.editor-container {
+    position: relative; /* Crucial for absolute positioning */
+    display: flex;
+    width: 95vw;
+    max-width: 1600px;
+    height: 90vh;
+    background-color: var(--md-sys-color-surface);
+    /* M3 Elevation 2 */
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    overflow: hidden; /* Important for containing positioned elements */
+}
+
+/* --- Sidebar Toggle Button (Right Aligned) --- */
+.sidebar-toggle {
+    position: absolute;
+    top: 24px;
+    /* Initial position: Near the LEFT edge of the RIGHT sidebar */
+    /* right = sidebar width + desired gap */
+    right: calc(var(--app-sidebar-width) + 16px); /* Start near the expanded sidebar */
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: var(--md-sys-shape-corner-full);
+    border: none;
+    background-color: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* M3 Elevation 1 */
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    /* Animate the 'right' property and transform */
+    transition: right var(--app-transition-duration-long) var(--app-transition-easing),
+                background-color var(--app-transition-duration-short) var(--app-transition-easing),
+                transform var(--app-transition-duration-medium) var(--app-transition-easing);
+    z-index: 1100; /* Ensure it's above sidebar */
+    overflow: hidden; /* Clip state layer */
+}
+.sidebar-toggle::before { /* State layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--md-sys-color-primary); opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+.sidebar-toggle:hover::before { opacity: var(--md-state-opacity-hover); }
+.sidebar-toggle:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+.sidebar-toggle:focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.sidebar-toggle:active::before { opacity: var(--md-state-opacity-pressed); }
+.sidebar-toggle:active { transform: scale(0.95); }
+
+.sidebar-toggle .material-icons {
+    font-size: 24px;
+    /* Animate icon rotation */
+    transition: transform var(--app-transition-duration-medium) var(--app-transition-easing);
+}
+
+/* Style adjustments when sidebar is COLLAPSED */
+.editor-container.collapsed-sidebar .sidebar-toggle {
+    /* Move button to the far right edge of the container */
+    right: 24px;
+}
+
+.editor-container.collapsed-sidebar .sidebar-toggle .material-icons {
+    /* Rotate icon to indicate 'open' action - Use chevron_left */
+    transform: rotate(0deg); /* Reset rotation */
+    content: 'chevron_left'; /* Change icon content if needed via JS or keep menu */
+}
+
+/* Style adjustments when sidebar is EXPANDED (default state, but explicit) */
+.editor-container:not(.collapsed-sidebar) .sidebar-toggle .material-icons {
+    /* Rotate icon to indicate 'close' action - Use chevron_right */
+    transform: rotate(180deg); /* Rotate chevron_left to look like chevron_right */
+     content: 'chevron_left'; /* Keep chevron_left */
+}
+
+/* --- Main Editor Area --- */
+.main-editor {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Remove padding, handle inside */
+    overflow: hidden; /* Let children handle scroll */
+    background-color: var(--md-sys-color-surface);
+}
+
+/* --- Formatting Toolbar --- */
+.formatting-toolbar {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens if needed */
+    align-items: center;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container-lowest); /* Slightly different from editor bg */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.toolbar-button {
+    /* M3 Icon Button Style */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: var(--md-sys-shape-corner-full); /* Circular */
+    border: none;
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing);
+    margin: 2px; /* Small gap */
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+.toolbar-button::before { /* State Layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--md-sys-color-on-surface-variant); opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+.toolbar-button:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.toolbar-button:not(:disabled):focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 1px; }
+.toolbar-button:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.toolbar-button:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+
+.toolbar-button .material-icons {
+    font-size: 20px; /* Slightly smaller for toolbar */
+    color: var(--md-sys-color-on-surface-variant) !important; /* Force icon color */
+}
+
+/* Active state for toolbar buttons */
+.toolbar-button.is-active {
+    background-color: var(--md-sys-color-secondary-container); /* Use secondary container */
+    color: var(--md-sys-color-on-secondary-container);
+}
+.toolbar-button.is-active::before { /* State layer uses secondary color */
+     background-color: var(--md-sys-color-on-secondary-container);
+}
+
+/* Disabled state */
+.toolbar-button:disabled {
+    color: rgba(27, 27, 31, 0.38);
+    cursor: not-allowed;
+    background-color: transparent;
+}
+.toolbar-button:disabled::before { opacity: 0; }
+
+/* Toolbar Divider */
+.toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--md-sys-color-outline-variant);
+    margin: 0 8px;
+}
+
+
+/* --- TipTap Editor Content Area --- */
+#editor-content {
+    flex-grow: 1;
+    padding: 24px 48px; /* Content padding */
+    overflow-y: auto; /* Make editor scrollable */
+    outline: none; /* Remove focus outline from the content div */
+}
+
+/* --- Styling Content WITHIN TipTap Editor --- */
+/* Use the .ProseMirror class TipTap adds to the editor element */
+.ProseMirror {
+    outline: none; /* Ensure no outline on the editable area itself */
+    line-height: var(--app-font-writing-line-height); /* Base line height */
+}
+.ProseMirror p {
+    font-family: var(--app-font-writing);
+    font-size: var(--app-font-writing-size);
+    color: var(--md-sys-color-on-surface);
+    margin-bottom: 1em; /* Paragraph spacing */
+}
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+    font-family: var(--md-sys-typescale-body-large-font); /* Use primary font */
+    color: var(--md-sys-color-on-surface);
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    line-height: 1.3;
+}
+.ProseMirror h1 { font-size: 2em; font-weight: 700; } /* Example sizes */
+.ProseMirror h2 { font-size: 1.6em; font-weight: 700; }
+.ProseMirror h3 { font-size: 1.3em; font-weight: 500; }
+
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 2em; /* Indentation */
+    margin-bottom: 1em;
+    color: var(--md-sys-color-on-surface);
+}
+.ProseMirror li {
+    margin-bottom: 0.5em;
+}
+.ProseMirror li > p { /* Remove margin from paragraph inside list item */
+    margin-bottom: 0;
+}
+
+.ProseMirror blockquote {
+    border-left: 3px solid var(--md-sys-color-primary-container);
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1.5em;
+    color: var(--md-sys-color-on-surface-variant);
+    font-style: italic;
+    margin-bottom: 1em;
+}
+
+.ProseMirror pre {
+    background: var(--md-sys-color-surface-container);
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: 'Courier New', Courier, monospace; /* Monospace font */
+    padding: 1em;
+    border-radius: var(--md-sys-shape-corner-small);
+    overflow-x: auto; /* Handle long lines */
+    margin-bottom: 1em;
+}
+.ProseMirror code { /* Inline code */
+    background: rgba(var(--md-sys-color-primary-container-rgb), 0.3); /* Subtle background */
+    padding: 0.2em 0.4em;
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    font-size: 0.9em;
+    font-family: 'Courier New', Courier, monospace;
+}
+.ProseMirror pre code { /* Code inside pre block, reset styles */
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+}
+
+.ProseMirror strong { font-weight: 700; } /* Bold */
+.ProseMirror em { font-style: italic; } /* Italic */
+.ProseMirror u { text-decoration: underline; } /* Underline */
+.ProseMirror s { text-decoration: line-through; } /* Strikethrough */
+
+/* Text Alignment */
+.ProseMirror p[style*="text-align: center"],
+.ProseMirror h1[style*="text-align: center"],
+.ProseMirror h2[style*="text-align: center"],
+.ProseMirror h3[style*="text-align: center"] { text-align: center; }
+.ProseMirror p[style*="text-align: right"],
+.ProseMirror h1[style*="text-align: right"],
+.ProseMirror h2[style*="text-align: right"],
+.ProseMirror h3[style*="text-align: right"] { text-align: right; }
+.ProseMirror p[style*="text-align: justify"],
+.ProseMirror h1[style*="text-align: justify"],
+.ProseMirror h2[style*="text-align: justify"],
+.ProseMirror h3[style*="text-align: justify"] { text-align: justify; }
+
+
+#word-count {
+    padding: 8px 48px 16px 48px; /* Match editor horizontal padding */
+    text-align: right;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    color: var(--md-sys-color-on-surface-variant);
+    flex-shrink: 0; /* Prevent shrinking */
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    margin-top: auto; /* Push to bottom if editor content is short */
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: var(--app-sidebar-width); /* Use variable */
+    flex-shrink: 0;
+    background-color: var(--md-sys-color-surface-container-low);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    /* Animate transform and opacity */
+    transition: transform var(--app-transition-duration-long) var(--app-transition-easing),
+                opacity var(--app-transition-duration-medium) var(--app-transition-easing);
+    transform: translateX(0%); /* Start visible */
+    opacity: 1;
+    border-left: 1px solid var(--md-sys-color-outline-variant);
+    box-sizing: border-box;
+    height: 100%; /* Ensure sidebar takes full height */
+}
+.sidebar h2 { /* Title Large */
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    line-height: var(--md-sys-typescale-title-large-line-height);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+.sidebar h3 { /* Title Medium */
+     font-family: var(--md-sys-typescale-title-medium-font);
+    font-size: var(--md-sys-typescale-title-medium-size);
+    font-weight: var(--md-sys-typescale-title-medium-weight);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    color: var(--md-sys-color-primary);
+    margin: 32px 0 12px 0;
+    padding-bottom: 4px;
+}
+.tool-group {
+    margin-bottom: 24px;
+}
+.tool-group label, label[for="tone-select"] { /* Label Large */
+    display: block;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 8px;
+}
+/* API Key Group styles */
+.api-key-group {
+    background-color: var(--md-sys-color-surface-container);
+    padding: 16px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    margin-bottom: 32px;
+}
+.api-key-input-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+#api-key-status {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--md-sys-color-error);
+    margin-bottom: 4px;
+}
+#api-key-status.valid {
+    color: var(--md-sys-color-primary);
+}
+.api-key-group small {
+    font-size: 0.75rem;
+    color: var(--md-sys-color-on-surface-variant);
+}
+.api-key-group small a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+}
+.api-key-group small a:hover {
+    text-decoration: underline;
+}
+
+/* M3 Text Fields & Select styles */
+input[type="text"], input[type="password"], select {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface);
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    padding: 16px;
+    height: 56px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color var(--app-transition-duration-short) var(--app-transition-easing),
+                box-shadow var(--app-transition-duration-short) var(--app-transition-easing);
+    width: 100%;
+}
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+}
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 0 0 1px var(--md-sys-color-primary); /* M3 focus indicator */
+}
+input[type="text"]:disabled, input[type="password"]:disabled, select:disabled {
+    background-color: rgba(27, 27, 31, 0.04);
+    border-color: rgba(27, 27, 31, 0.12);
+    color: rgba(27, 27, 31, 0.38);
+}
+select {
+     appearance: none;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z' fill='%2344474F'/%3E%3C/svg%3E");
+     background-repeat: no-repeat;
+     background-position: right 16px center;
+     padding-right: 48px; /* Space for arrow */
+}
+#api-key {
+    flex-grow: 1;
+    border-radius: var(--md-sys-shape-corner-extra-small) 0 0 var(--md-sys-shape-corner-extra-small);
+    border-right: none;
+}
+#api-key:focus { position: relative; z-index: 1; }
+#custom-prompt { margin-bottom: 12px; }
+
+/* M3 Button Styles (Outlined, Text, Icon) */
+.material-button, .material-button-icon, .material-button-text {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    height: 40px; padding: 0 24px; border-radius: var(--md-sys-shape-corner-full);
+    border: none; cursor: pointer; text-transform: none; letter-spacing: 0.1px;
+    box-sizing: border-box; position: relative; overflow: hidden;
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing),
+                box-shadow var(--app-transition-duration-short) var(--app-transition-easing);
+    margin-top: 8px; margin-right: 8px; flex-wrap: nowrap; white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+}
+.material-button::before, .material-button-icon::before, .material-button-text::before { /* State Layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: currentColor; opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+/* Outlined Button */
+.material-button { color: var(--md-sys-color-primary); background-color: transparent; border: 1px solid var(--md-sys-color-outline); padding: 0 23px; }
+.material-button:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.material-button:not(:disabled):focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+.material-button:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.material-button:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+/* Icon Button */
+.material-button-icon { padding: 8px; width: 40px; height: 40px; min-width: auto; border-radius: var(--md-sys-shape-corner-full); color: var(--md-sys-color-on-surface-variant); background-color: transparent; border: none; }
+.material-button-icon .material-icons { font-size: 24px; margin: 0; }
+.material-button-icon:not(:disabled):hover::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-hover); }
+.material-button-icon:not(:disabled):focus-visible { outline: 2px solid var(--md-sys-color-on-surface-variant); outline-offset: 2px; }
+.material-button-icon:not(:disabled):focus-visible::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-focus); }
+.material-button-icon:not(:disabled):active::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-pressed); }
+/* Save API Key Button Styling */
+#save-api-key-btn { padding: 8px; width: 40px; height: 56px; min-width: 40px; border-radius: 0 var(--md-sys-shape-corner-extra-small) var(--md-sys-shape-corner-extra-small) 0; border: 1px solid var(--md-sys-color-outline); border-left: none; margin-left: -1px; color: var(--md-sys-color-primary); }
+#save-api-key-btn:hover { background-color: transparent; }
+#save-api-key-btn:not(:disabled):hover::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-hover); }
+#save-api-key-btn:not(:disabled):focus-visible { outline-color: var(--md-sys-color-primary); }
+#save-api-key-btn:not(:disabled):focus-visible::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-focus); }
+#save-api-key-btn:not(:disabled):active::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-pressed); }
+/* Text Button */
+.material-button-text { color: var(--md-sys-color-primary); background-color: transparent; border: none; padding: 0 12px; }
+.material-button-text:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.material-button-text:not(:disabled):focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+.material-button-text:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.material-button-text:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+/* Disabled State */
+.material-button:disabled, .material-button-icon:disabled, .material-button-text:disabled { background-color: transparent; color: rgba(27, 27, 31, 0.38); border-color: rgba(27, 27, 31, 0.12); cursor: not-allowed; }
+.material-button:disabled .material-icons { color: rgba(27, 27, 31, 0.38); }
+.material-button:disabled::before, .material-button-icon:disabled::before, .material-button-text:disabled::before { opacity: 0; }
+.material-button .material-icons { font-size: 18px; margin-right: 8px; }
+
+/* --- Output Areas --- */
+.output-area {
+    margin-top: 12px; padding: 12px 16px; background-color: var(--md-sys-color-surface-container);
+    border-radius: var(--md-sys-shape-corner-medium); font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-medium-size); /* Use Body Medium for results */
+    color: var(--md-sys-color-on-surface-variant); max-height: 180px; overflow-y: auto; line-height: 1.5; /* Adjusted */
+    min-height: 40px; box-sizing: border-box; border: 1px solid transparent;
+}
+.output-area div { /* Individual suggestions */
+    padding: 8px 12px; margin-bottom: 6px; cursor: pointer; border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface);
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing); position: relative;
+}
+.output-area div::before { /* State layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--md-sys-color-primary);
+    opacity: 0; transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+.output-area div:hover::before { opacity: var(--md-state-opacity-hover); }
+.output-area div:active::before { opacity: var(--md-state-opacity-pressed); }
+.output-area i { color: var(--md-sys-color-on-surface-variant); display: block; padding: 5px; font-style: normal; }
+
+/* --- Sidebar Footer --- */
+.sidebar-footer {
+    margin-top: auto; padding-top: 24px; border-top: 1px solid var(--md-sys-color-outline-variant);
+    display: flex; justify-content: space-around;
+}
+
+/* --- Collapsed Sidebar Logic --- */
+.editor-container.collapsed-sidebar .sidebar {
+    transform: translateX(100%); /* Slide out */
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+    width: 0;
+    padding: 0;
+    border: none;
+}
+
+/* --- Spinner Animation --- */
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.spin {
+    animation: spin 1s linear infinite; display: inline-block; width: 18px; height: 18px;
+    line-height: 0; margin-right: 8px;
+}
+.material-button .spin .material-icons { margin: 0; }
+
+/* Improve scrollbar styling (optional) */
+.sidebar::-webkit-scrollbar, #editor-content::-webkit-scrollbar { width: 8px; }
+.sidebar::-webkit-scrollbar-track, #editor-content::-webkit-scrollbar-track { background: var(--md-sys-color-surface-container); border-radius: 4px; }
+.sidebar::-webkit-scrollbar-thumb, #editor-content::-webkit-scrollbar-thumb { background-color: var(--md-sys-color-outline); border-radius: 4px; border: 2px solid var(--md-sys-color-surface-container); }
+.sidebar::-webkit-scrollbar-thumb:hover, #editor-content::-webkit-scrollbar-thumb:hover { background-color: var(--md-sys-color-on-surface-variant); }
+
+/* Add focus styles for better accessibility */
+*:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
+*:focus:not(:focus-visible) { outline: none; }
