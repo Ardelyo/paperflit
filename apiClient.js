@@ -32,6 +32,12 @@ export function setApiKey(key) {
  * @returns {string|null} The API key or null if not set.
  */
 export function getApiKey() {
+    // Check for environment variable first
+    if (process && process.env.OPENROUTER_API_KEY) {
+        console.log("API Key loaded from environment variable.");
+        return process.env.OPENROUTER_API_KEY;
+    }
+    // Fallback to localStorage if environment variable is not set
     return openRouterApiKey;
 }
 

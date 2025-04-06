@@ -124,14 +124,8 @@
             <div class="tab-content active" id="ai-tools">
                 <!-- API Key Section -->
                 <div class="tool-group api-key-group">
-                    <label for="api-key">OpenRouter API Key</label>
-                    <div class="api-key-input-wrapper">
-                        <input type="password" id="api-key" placeholder="Enter your key">
-                        <button id="save-api-key-btn" class="material-button-icon" title="Save Key">
-                            <span class="material-icons">save</span>
-                        </button>
-                    </div>
-                     <small id="api-key-status">Key not set. Features disabled.</small>
+                    <label>OpenRouter API Key</label>
+                     <small id="api-key-status">API key will be loaded from environment variables or local storage.</small>
                      <small>Get a key at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></small>
                      <!-- Hidden inputs for API context -->
                      <input type="hidden" id="site-url" value="http://localhost:8080"> <!-- Adjust if needed -->
