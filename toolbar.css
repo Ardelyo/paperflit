@@ -1,0 +1,87 @@
+/* toolbar.css - Styles for the formatting toolbar */
+
+.formatting-toolbar {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    align-items: center;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container-lowest); /* Slightly different from editor bg */
+    flex-shrink: 0; /* Prevent toolbar from shrinking */
+}
+
+.toolbar-button {
+    /* M3 Icon Button Style */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Standard icon button size */
+    height: 40px;
+    padding: 8px;
+    border-radius: var(--md-sys-shape-corner-full); /* Circular */
+    border: none;
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant); /* Default icon color */
+    cursor: pointer;
+    position: relative; /* For state layer */
+    overflow: hidden; /* Clip state layer */
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing);
+    margin: 2px; /* Small gap between buttons */
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    font-family: var(--md-sys-typescale-label-large-font); /* Ensure consistent font for text buttons (H1, H2) */
+    font-size: 0.875rem; /* Match label large size for H1/H2 text */
+    font-weight: var(--md-sys-typescale-label-large-weight);
+}
+.toolbar-button::before { /* State Layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--md-sys-color-on-surface-variant); /* Use icon color for ripple */
+    opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+/* Hover, Focus, Pressed states */
+.toolbar-button:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.toolbar-button:not(:disabled):focus-visible { outline: none; } /* Use state layer for focus */
+.toolbar-button:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.toolbar-button:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+
+/* Icon styling within buttons */
+.toolbar-button .material-icons {
+    font-size: 20px; /* Slightly smaller icons for toolbar density */
+    color: inherit; /* Inherit color from button */
+    display: block; /* Ensure icon takes up space */
+    line-height: 1; /* Prevent extra line height */
+}
+
+/* Active state for toggle buttons */
+.toolbar-button.is-active {
+    background-color: var(--md-sys-color-secondary-container); /* Use secondary container for selection */
+    color: var(--md-sys-color-on-secondary-container);
+}
+.toolbar-button.is-active::before { /* State layer uses the active color */
+     background-color: var(--md-sys-color-on-secondary-container);
+}
+.toolbar-button.is-active .material-icons {
+    color: inherit; /* Ensure icon inherits active color */
+}
+
+/* Disabled state */
+.toolbar-button:disabled {
+    color: rgba(27, 27, 31, 0.38); /* M3 disabled text color */
+    cursor: not-allowed;
+    background-color: transparent;
+}
+.toolbar-button:disabled::before { opacity: 0; } /* No state layer when disabled */
+.toolbar-button:disabled .material-icons {
+    color: inherit; /* Ensure icon inherits disabled color */
+}
+
+/* Toolbar Divider */
+.toolbar-divider {
+    width: 1px;
+    height: 24px; /* Vertical divider height */
+    background-color: var(--md-sys-color-outline-variant);
+    margin: 0 8px; /* Space around divider */
+    align-self: center; /* Center vertically */
+}

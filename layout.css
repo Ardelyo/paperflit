@@ -1,0 +1,156 @@
+/* layout.css - Styles for main page structure and sidebar behavior */
+
+.editor-container {
+    position: relative; /* Crucial for absolute positioning of toggle */
+    display: flex;
+    width: 95vw;
+    max-width: 1600px; /* Limit maximum width */
+    height: 90vh;
+    background-color: var(--md-sys-color-surface);
+    /* M3 Elevation 2 */
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    overflow: hidden; /* Important for containing positioned elements and rounded corners */
+}
+
+/* --- Sidebar Toggle Button (Positioned relative to editor-container) --- */
+.sidebar-toggle {
+    position: absolute;
+    top: 24px;
+    /* Initial position: Near the LEFT edge of the (expanded) RIGHT sidebar */
+    /* right = sidebar width + desired gap */
+    right: calc(var(--app-sidebar-width) + 16px);
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    border-radius: var(--md-sys-shape-corner-full);
+    border: none;
+    background-color: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* M3 Elevation 1 */
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    /* Animate the 'right' property and transform */
+    transition: right var(--app-transition-duration-long) var(--app-transition-easing),
+                background-color var(--app-transition-duration-short) var(--app-transition-easing),
+                transform var(--app-transition-duration-medium) var(--app-transition-easing);
+    z-index: 1100; /* Ensure it's above sidebar */
+    overflow: hidden; /* Clip state layer */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+.sidebar-toggle::before { /* State layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--md-sys-color-primary); opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+.sidebar-toggle:hover::before { opacity: var(--md-state-opacity-hover); }
+.sidebar-toggle:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; } /* Handled globally */
+.sidebar-toggle:focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.sidebar-toggle:active::before { opacity: var(--md-state-opacity-pressed); }
+.sidebar-toggle:active { transform: scale(0.95); }
+
+.sidebar-toggle .material-icons {
+    font-size: 24px;
+    /* Animate icon content change (if using JS) or transform */
+    transition: transform var(--app-transition-duration-medium) var(--app-transition-easing);
+}
+
+/* Style adjustments when sidebar is COLLAPSED */
+.editor-container.collapsed-sidebar .sidebar-toggle {
+    /* Move button to the far right edge of the container */
+    right: 24px;
+}
+
+/* Icons are handled by uiHandlers.js changing textContent, no CSS rotation needed */
+/* .editor-container.collapsed-sidebar .sidebar-toggle .material-icons { ... } */
+/* .editor-container:not(.collapsed-sidebar) .sidebar-toggle .material-icons { ... } */
+
+
+/* --- Main Editor Area --- */
+.main-editor {
+    flex-grow: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Remove padding, handle inside children */
+    overflow: hidden; /* Let children handle scroll */
+    background-color: var(--md-sys-color-surface);
+    /* Add transition for smooth resizing when sidebar collapses/expands */
+    transition: width var(--app-transition-duration-long) var(--app-transition-easing);
+}
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    width: var(--app-sidebar-width); /* Use variable */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    background-color: var(--md-sys-color-surface-container-low);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Allow sidebar content to scroll */
+    /* Animate transform and opacity for slide effect */
+    transition: transform var(--app-transition-duration-long) var(--app-transition-easing),
+                opacity var(--app-transition-duration-medium) var(--app-transition-easing),
+                width var(--app-transition-duration-long) var(--app-transition-easing), /* Also transition width */
+                padding var(--app-transition-duration-long) var(--app-transition-easing); /* Transition padding */
+    transform: translateX(0%); /* Start visible */
+    opacity: 1;
+    border-left: 1px solid var(--md-sys-color-outline-variant);
+    box-sizing: border-box;
+    height: 100%; /* Ensure sidebar takes full height of container */
+}
+
+/* --- Collapsed Sidebar Logic --- */
+.editor-container.collapsed-sidebar .sidebar {
+    transform: translateX(100%); /* Slide out */
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when hidden */
+    width: 0; /* Collapse width */
+    padding: 0; /* Remove padding */
+    border-left: none; /* Remove border */
+    overflow: hidden; /* Hide content immediately */
+}
+
+/* --- Spinner Animation --- */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.spin {
+    animation: spin 1s linear infinite;
+    display: inline-block; /* Or inline-flex if needed */
+    width: 18px; /* Match icon size */
+    height: 18px;
+    line-height: 0; /* Prevent extra space */
+    margin-right: 8px; /* Space between spinner and text */
+    vertical-align: middle; /* Align with text */
+}
+/* Ensure icon inside spinner doesn't have extra margin */
+.material-button .spin .material-icons {
+    margin: 0;
+    vertical-align: top; /* Adjust alignment if needed */
+}
+
+/* --- Scrollbar styling specific to layout components --- */
+.sidebar::-webkit-scrollbar,
+.main-editor::-webkit-scrollbar { /* Apply to main editor if it were to scroll */
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-track,
+.main-editor::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface-container);
+    border-radius: 4px;
+}
+.sidebar::-webkit-scrollbar-thumb,
+.main-editor::-webkit-scrollbar-thumb {
+    background-color: var(--md-sys-color-outline);
+    border-radius: 4px;
+    border: 2px solid var(--md-sys-color-surface-container);
+}
+.sidebar::-webkit-scrollbar-thumb:hover,
+.main-editor::-webkit-scrollbar-thumb:hover {
+    background-color: var(--md-sys-color-on-surface-variant);
+}

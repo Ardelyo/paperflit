@@ -1,0 +1,309 @@
+/* sidebarComponents.css - Styles for elements within the AI Tools Sidebar */
+
+/* Sidebar Headings */
+.sidebar h2 { /* Title Large */
+    font-family: var(--md-sys-typescale-title-large-font);
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    line-height: var(--md-sys-typescale-title-large-line-height);
+    color: var(--md-sys-color-on-surface);
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+.sidebar h3 { /* Title Medium */
+     font-family: var(--md-sys-typescale-title-medium-font);
+    font-size: var(--md-sys-typescale-title-medium-size);
+    font-weight: var(--md-sys-typescale-title-medium-weight);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    color: var(--md-sys-color-primary); /* Use primary color for section titles */
+    margin: 32px 0 12px 0; /* More top margin for separation */
+    padding-bottom: 4px;
+    /* Optional: border-bottom: 1px solid var(--md-sys-color-primary-container); */
+}
+
+/* Tool Grouping */
+.tool-group {
+    margin-bottom: 24px;
+}
+.tool-group label, label[for="tone-select"] { /* Label Large */
+    display: block;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    color: var(--md-sys-color-on-surface-variant); /* Subtler color for labels */
+    margin-bottom: 8px;
+}
+
+/* API Key Group Specific Styles */
+.api-key-group {
+    background-color: var(--md-sys-color-surface-container); /* Contained background */
+    padding: 16px;
+    border-radius: var(--md-sys-shape-corner-medium);
+    margin-bottom: 32px; /* More space after API key section */
+}
+.api-key-input-wrapper {
+    display: flex;
+    align-items: center; /* Vertically align input and button */
+    margin-bottom: 8px;
+}
+#api-key-status {
+    display: block;
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-error); /* Default to error color */
+    margin-bottom: 4px;
+    min-height: var(--md-sys-typescale-body-medium-line-height); /* Prevent layout shift */
+}
+#api-key-status.valid {
+    color: var(--md-sys-color-primary); /* Use primary color for valid status */
+}
+.api-key-group small { /* Helper text */
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-size: 0.75rem; /* Smaller helper text */
+    color: var(--md-sys-color-on-surface-variant);
+    display: block; /* Ensure it takes its own line */
+}
+.api-key-group small a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+}
+.api-key-group small a:hover {
+    text-decoration: underline;
+}
+
+/* M3 Text Fields & Select Styles */
+input[type="text"], input[type="password"], select {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-size: var(--md-sys-typescale-body-large-size);
+    color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface); /* Use base surface color */
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: var(--md-sys-shape-corner-extra-small);
+    padding: 0 16px; /* Vertical padding handled by height */
+    height: 56px; /* M3 standard height */
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color var(--app-transition-duration-short) var(--app-transition-easing),
+                box-shadow var(--app-transition-duration-short) var(--app-transition-easing);
+    width: 100%; /* Full width within container */
+    line-height: 54px; /* Center text vertically */
+}
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+    opacity: 1; /* Ensure placeholder is visible */
+}
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 0 0 0 1px var(--md-sys-color-primary); /* M3 focus indicator */
+}
+input[type="text"]:disabled, input[type="password"]:disabled, select:disabled {
+    background-color: rgba(27, 27, 31, 0.04); /* M3 disabled background */
+    border-color: rgba(27, 27, 31, 0.12); /* M3 disabled border */
+    color: rgba(27, 27, 31, 0.38); /* M3 disabled text */
+    cursor: not-allowed;
+}
+select {
+     appearance: none; /* Remove default arrow */
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z' fill='%2344474F'/%3E%3C/svg%3E"); /* M3 dropdown arrow */
+     background-repeat: no-repeat;
+     background-position: right 16px center;
+     padding-right: 48px; /* Space for arrow */
+}
+/* Specific adjustments for API key input group */
+#api-key {
+    flex-grow: 1; /* Allow input to take available space */
+    border-radius: var(--md-sys-shape-corner-extra-small) 0 0 var(--md-sys-shape-corner-extra-small);
+    border-right: none; /* Remove right border, button provides it */
+}
+#api-key:focus {
+    position: relative; /* Ensure focus ring overlaps button border */
+    z-index: 1;
+}
+#custom-prompt {
+    margin-bottom: 12px; /* Space between prompt input and button */
+}
+
+/* M3 Button Styles (Outlined, Text, Icon) */
+.material-button, .material-button-icon, .material-button-text {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-size: var(--md-sys-typescale-label-large-size);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    height: 40px; /* M3 standard button height */
+    padding: 0 24px; /* Horizontal padding for filled/outlined */
+    border-radius: var(--md-sys-shape-corner-full); /* Pill shape */
+    border: none; cursor: pointer; text-transform: none; /* Use sentence case */
+    letter-spacing: 0.1px; /* M3 standard letter spacing */
+    box-sizing: border-box; position: relative; overflow: hidden;
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing),
+                box-shadow var(--app-transition-duration-short) var(--app-transition-easing);
+    margin-top: 8px; /* Space above buttons */
+    margin-right: 8px; /* Space between buttons if inline */
+    flex-wrap: nowrap; white-space: nowrap; /* Prevent text wrapping */
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle; /* Align with inputs/labels */
+}
+.material-button::before, .material-button-icon::before, .material-button-text::before { /* State Layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: currentColor; /* Ripple uses text color */
+    opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+
+/* Outlined Button (Default for most actions) */
+.material-button {
+    color: var(--md-sys-color-primary);
+    background-color: transparent;
+    border: 1px solid var(--md-sys-color-outline);
+    padding: 0 23px; /* Adjust padding for border */
+    width: 100%; /* Make buttons full width in sidebar */
+    margin-right: 0; /* Remove right margin for full width */
+}
+.material-button:not(:disabled):hover { background-color: transparent; } /* Keep transparent */
+.material-button:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.material-button:not(:disabled):focus-visible { outline: none; border-color: var(--md-sys-color-primary); } /* Use border for focus */
+.material-button:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.material-button:not(:disabled):active { background-color: transparent; }
+.material-button:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+
+/* Icon Button (Used for Save API Key) */
+.material-button-icon {
+    padding: 8px; width: 40px; height: 40px; min-width: auto; /* Reset min-width */
+    border-radius: var(--md-sys-shape-corner-full);
+    color: var(--md-sys-color-on-surface-variant); /* Default icon color */
+    background-color: transparent; border: none;
+    margin: 0; /* Reset margins */
+}
+.material-button-icon .material-icons { font-size: 24px; margin: 0; } /* Reset icon margin */
+.material-button-icon:not(:disabled):hover::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-hover); }
+.material-button-icon:not(:disabled):focus-visible { outline: none; }
+.material-button-icon:not(:disabled):focus-visible::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-focus); }
+.material-button-icon:not(:disabled):active::before { background-color: var(--md-sys-color-on-surface-variant); opacity: var(--md-state-opacity-pressed); }
+
+/* Save API Key Button Specific Styling */
+#save-api-key-btn {
+    padding: 8px; width: 40px; height: 56px; /* Match input height */
+    min-width: 40px;
+    border-radius: 0 var(--md-sys-shape-corner-extra-small) var(--md-sys-shape-corner-extra-small) 0;
+    border: 1px solid var(--md-sys-color-outline);
+    border-left: none;
+    margin-left: -1px; /* Overlap borders */
+    color: var(--md-sys-color-primary); /* Primary color for save icon */
+    background-color: var(--md-sys-color-surface); /* Match input background */
+}
+#save-api-key-btn:hover { background-color: var(--md-sys-color-surface); } /* Keep background */
+#save-api-key-btn:not(:disabled):hover::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-hover); }
+#save-api-key-btn:not(:disabled):focus-visible { outline: none; border-color: var(--md-sys-color-primary); z-index: 1; }
+#save-api-key-btn:not(:disabled):focus-visible::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-focus); }
+#save-api-key-btn:not(:disabled):active::before { background-color: var(--md-sys-color-primary); opacity: var(--md-state-opacity-pressed); }
+
+/* Text Button (Used in Footer) */
+.material-button-text {
+    color: var(--md-sys-color-primary);
+    background-color: transparent; border: none;
+    padding: 0 12px; /* Less padding for text buttons */
+    width: auto; /* Allow text buttons to size naturally */
+    margin-right: 8px; /* Restore right margin for footer spacing */
+}
+.material-button-text:not(:disabled):hover { background-color: transparent; }
+.material-button-text:not(:disabled):hover::before { opacity: var(--md-state-opacity-hover); }
+.material-button-text:not(:disabled):focus-visible { outline: none; }
+.material-button-text:not(:disabled):focus-visible::before { opacity: var(--md-state-opacity-focus); }
+.material-button-text:not(:disabled):active { background-color: transparent; }
+.material-button-text:not(:disabled):active::before { opacity: var(--md-state-opacity-pressed); }
+
+/* Disabled State for All Buttons */
+.material-button:disabled, .material-button-icon:disabled, .material-button-text:disabled {
+    background-color: transparent;
+    color: rgba(27, 27, 31, 0.38); /* M3 disabled text */
+    border-color: rgba(27, 27, 31, 0.12); /* M3 disabled outline */
+    cursor: not-allowed;
+}
+/* Ensure outlined button border color changes when disabled */
+.material-button:disabled {
+    border-color: rgba(27, 27, 31, 0.12);
+}
+.material-button:disabled .material-icons,
+.material-button-icon:disabled .material-icons,
+.material-button-text:disabled .material-icons {
+    color: rgba(27, 27, 31, 0.38); /* Disabled icon color */
+}
+.material-button:disabled::before, .material-button-icon:disabled::before, .material-button-text:disabled::before {
+    opacity: 0; /* No state layer when disabled */
+}
+
+/* Icon within buttons */
+.material-button .material-icons {
+    font-size: 18px; /* Standard icon size */
+    margin-right: 8px; /* Space between icon and text */
+    margin-left: -4px; /* Adjust for visual centering */
+    vertical-align: bottom; /* Align icon better with text */
+}
+
+/* --- Output Areas --- */
+.output-area {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background-color: var(--md-sys-color-surface-container); /* Container background */
+    border-radius: var(--md-sys-shape-corner-medium);
+    font-family: var(--md-sys-typescale-body-medium-font); /* Use Body Medium for results */
+    font-size: var(--md-sys-typescale-body-medium-size);
+    color: var(--md-sys-color-on-surface-variant); /* Default text color */
+    max-height: 180px; /* Limit height */
+    overflow-y: auto; /* Allow scrolling */
+    line-height: 1.5;
+    min-height: 40px; /* Ensure it has some height even when empty */
+    box-sizing: border-box;
+    border: 1px solid transparent; /* Placeholder for potential border */
+}
+/* Individual suggestion items */
+.output-area div {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border-radius: var(--md-sys-shape-corner-small);
+    background-color: var(--md-sys-color-surface-container-high); /* Slightly elevated background */
+    color: var(--md-sys-color-on-surface); /* Use standard text color */
+    transition: background-color var(--app-transition-duration-short) var(--app-transition-easing);
+    position: relative; /* For state layer */
+    overflow: hidden; /* Clip state layer */
+}
+.output-area div:last-child {
+    margin-bottom: 0; /* Remove margin from last item */
+}
+.output-area div::before { /* State layer */
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--md-sys-color-primary); /* Use primary for interaction */
+    opacity: 0;
+    transition: opacity var(--app-transition-duration-short) var(--app-transition-easing);
+    pointer-events: none; border-radius: inherit;
+}
+.output-area div:hover::before { opacity: var(--md-state-opacity-hover); }
+.output-area div:active::before { opacity: var(--md-state-opacity-pressed); }
+
+/* Italicized text for status messages (e.g., "Generating...", "Error:") */
+.output-area i {
+    color: var(--md-sys-color-on-surface-variant); /* Use variant color for status */
+    display: block;
+    padding: 5px; /* Some padding */
+    font-style: normal; /* Reset italic */
+    text-align: center;
+}
+.output-area i.error-message {
+    color: var(--md-sys-color-error); /* Use error color for errors */
+}
+
+
+/* --- Sidebar Footer --- */
+.sidebar-footer {
+    margin-top: auto; /* Push footer to the bottom */
+    padding-top: 24px;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    display: flex;
+    justify-content: space-around; /* Space out footer buttons */
+    flex-shrink: 0; /* Prevent footer from shrinking */
+}

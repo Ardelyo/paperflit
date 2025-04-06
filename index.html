@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Text Editor - Enhanced</title>
+    <title>Magic Text Editor - Refactored</title>
 
-    <!-- Stylesheets -->
+    <!-- Google Fonts (Keep) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/style.css">
 
-    <!-- Remove old TipTap CDN script tags -->
-    <script type="module" src="editor.js"></script>
+    <!-- Refactored Stylesheets -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="toolbar.css">
+    <link rel="stylesheet" href="editorContent.css">
+    <link rel="stylesheet" href="sidebarComponents.css">
+    <!-- <link rel="stylesheet" href="utilities.css"> --> <!-- Add if utilities.css was created -->
+
+    <!-- Remove old script tags -->
+    <!-- <script type="module" src="editor.js"></script> --> <!-- Removed -->
+    <!-- <script src="src/js/script.js" defer></script> --> <!-- Removed -->
 </head>
 <body>
     <!-- Main container for layout -->
-    <div class="editor-container">
+    <div class="editor-container"> <!-- Add class 'collapsed-sidebar' initially if desired -->
 
-        <!-- Sidebar Toggle Button (Positioned by CSS) -->
+        <!-- Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="sidebar-toggle" title="Toggle AI Tools Sidebar">
-            <span class="material-icons">menu</span>
+            <!-- Icon content (chevron_left/chevron_right) will be managed by uiHandlers.js -->
+            <span class="material-icons">chevron_right</span>
         </button>
 
         <!-- Main Editor Pane -->
         <div class="main-editor">
-            <!-- Formatting Toolbar (Buttons added here by JS or statically) -->
+            <!-- Formatting Toolbar -->
             <div id="formatting-toolbar" class="formatting-toolbar">
                  <!-- Basic Formatting Buttons -->
                  <button class="toolbar-button" data-command="toggleBold" title="Bold (Ctrl+B)">
@@ -41,19 +50,13 @@
                     <span class="material-icons">format_strikethrough</span>
                  </button>
                  <div class="toolbar-divider"></div>
-                 <!-- Heading/Paragraph (Example using buttons, could be select) -->
+                 <!-- Heading/Paragraph -->
                  <button class="toolbar-button" data-command="setParagraph" title="Paragraph">
-                    <span class="material-icons">notes</span> <!-- Replaced format_paragraph -->
+                    <span class="material-icons">notes</span>
                  </button>
-                 <button class="toolbar-button" data-command="toggleHeading" data-level="1" title="Heading 1">
-                    H1 <!-- Replaced format_h1 icon with text -->
-                 </button>
-                  <button class="toolbar-button" data-command="toggleHeading" data-level="2" title="Heading 2">
-                    H2 <!-- Replaced format_h2 icon with text -->
-                 </button>
-                 <button class="toolbar-button" data-command="toggleHeading" data-level="3" title="Heading 3">
-                     H3 <!-- Replaced format_h3 icon with text -->
-                 </button>
+                 <button class="toolbar-button" data-command="toggleHeading" data-level="1" title="Heading 1">H1</button>
+                 <button class="toolbar-button" data-command="toggleHeading" data-level="2" title="Heading 2">H2</button>
+                 <button class="toolbar-button" data-command="toggleHeading" data-level="3" title="Heading 3">H3</button>
                  <div class="toolbar-divider"></div>
                  <!-- Lists -->
                  <button class="toolbar-button" data-command="toggleBulletList" title="Bullet List">
@@ -71,7 +74,7 @@
                     <span class="material-icons">code</span>
                  </button>
                  <div class="toolbar-divider"></div>
-                 <!-- Alignment (Requires extension) -->
+                 <!-- Alignment -->
                   <button class="toolbar-button" data-command="setTextAlign" data-value="left" title="Align Left">
                     <span class="material-icons">format_align_left</span>
                  </button>
@@ -86,13 +89,12 @@
                  </button>
                  <div class="toolbar-divider"></div>
                  <!-- History -->
-                 <button class="toolbar-button" data-command="undo" title="Undo (Ctrl+Z)">
+                 <button class="toolbar-button" data-command="undo" title="Undo (Ctrl+Z)" disabled> <!-- Start disabled -->
                     <span class="material-icons">undo</span>
                  </button>
-                  <button class="toolbar-button" data-command="redo" title="Redo (Ctrl+Y)">
+                  <button class="toolbar-button" data-command="redo" title="Redo (Ctrl+Y)" disabled> <!-- Start disabled -->
                     <span class="material-icons">redo</span>
                  </button>
-                 <!-- Font Family/Size Selects would go here if implemented -->
             </div>
 
             <!-- TipTap Editor Content Area -->
@@ -119,7 +121,8 @@
                 </div>
                  <small id="api-key-status">Key not set. Features disabled.</small>
                  <small>Get a key at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></small>
-                 <input type="hidden" id="site-url" value="http://localhost:8080">
+                 <!-- Hidden inputs for API context -->
+                 <input type="hidden" id="site-url" value="http://localhost:8080"> <!-- Adjust if needed -->
                  <input type="hidden" id="site-name" value="Magic Text Editor">
             </div>
 
@@ -134,7 +137,7 @@
 
             <div class="tool-group">
                 <label for="custom-prompt">Custom Prompt</label>
-                <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier">
+                <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier" disabled>
                 <button id="use-custom-prompt-btn" class="material-button" disabled>
                     <span class="material-icons">edit_note</span> Use Prompt
                 </button>
@@ -153,14 +156,15 @@
             <h3>Refinement & Style (Select Text)</h3>
             <div class="tool-group">
                 <label for="tone-select">Change Tone</label>
-                <select id="tone-select">
+                <select id="tone-select" disabled>
                     <option value="more formal">More Formal</option>
                     <option value="more casual">More Casual</option>
                     <option value="mysterious">Mysterious</option>
                     <option value="humorous">Humorous</option>
                     <option value="urgent">Urgent</option>
                     <option value="sarcastic">Sarcastic</option>
-                    <!-- Add more tones as needed -->
+                    <option value="optimistic">Optimistic</option>
+                    <option value="pessimistic">Pessimistic</option>
                 </select>
                 <button id="change-tone-btn" class="material-button" disabled>
                     <span class="material-icons">sync_alt</span> Change Tone
@@ -191,12 +195,6 @@
                 </button>
                 <div id="concise-output" class="output-area"></div>
             </div>
-             <!-- <div class="tool-group">
-                <button id="repetition-btn" class="material-button" title="Find repeated words and suggest alternatives" disabled>
-                    <span class="material-icons">find_replace</span> Find Repetitions
-                </button>
-                <div id="repetition-output" class="output-area"></div>
-            </div> -->
 
             <!-- === Idea Generation & Expansion Section === -->
             <h3>Idea Generation</h3>
@@ -221,13 +219,6 @@
                 </button>
                 <div id="whatif-output" class="output-area"></div>
             </div>
-             <!-- <div class="tool-group">
-                 <label>Brainstorm (Select Keyword)</label>
-                <button id="brainstorm-btn" class="material-button" title="List related concepts, themes, or symbols" disabled>
-                     <span class="material-icons">psychology</span> Brainstorm Related
-                 </button>
-                <div id="brainstorm-output" class="output-area"></div>
-            </div> -->
 
             <!-- === Analysis & Structure Section === -->
             <h3>Analysis & Structure</h3>
@@ -247,16 +238,15 @@
             </div>
 
             <!-- === Footer === -->
-<div class="sidebar-footer">
-                 <button id="share-btn" class="material-button-text">Share</button>
+            <div class="sidebar-footer">
+                 <button id="share-btn" class="material-button-text">Export</button> <!-- Changed from Share -->
                  <button id="reset-btn" class="material-button-text">Start Over</button>
             </div>
 
         </aside> <!-- End Sidebar -->
     </div> <!-- End Editor Container -->
 
-    <!-- TipTap Libraries -->
-    <!-- Main Application Script -->
-    <script type="module" src="src/js/main.js" defer></script>
+    <!-- Main Application Script (ES Module) -->
+    <script type="module" src="main.js" defer></script>
 </body>
 </html>
