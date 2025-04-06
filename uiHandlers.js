@@ -7,6 +7,9 @@ let editorInstance = null; // To be set by initializeUIHandlers
 
 // Store references to frequently used elements
 const uiElements = {
+    apiKeyInput: null,
+    saveApiKeyBtn: null,
+    apiKeyStatus: null,
     sidebarToggle: null,
     editorContainer: null,
     aiToolButtons: [],
@@ -206,6 +209,39 @@ function enableApiControls(enabled) {
     // Note: Save button for API key should always be enabled
 }
 
+/**
+ * Sets up the handler for saving the API key.
+ */
+function setupApiKeyHandler() {
+    if (!uiElements.apiKeyInput || !uiElements.saveApiKeyBtn || !uiElements.apiKeyStatus) return;
+
+    // Set initial state based on stored key
+    const currentKey = getApiKey();
+    if (currentKey) {
+        uiElements.apiKeyInput.value = currentKey;
+        uiElements.apiKeyStatus.textContent = 'API Key is set.';
+        uiElements.apiKeyStatus.className = 'valid';
+        enableApiControls(true);
+    } else {
+        uiElements.apiKeyStatus.textContent = 'Key not set. Features disabled.';
+        uiElements.apiKeyStatus.className = '';
+        enableApiControls(false);
+    }
+
+    uiElements.saveApiKeyBtn.addEventListener('click', () => {
+        const newKey = uiElements.apiKeyInput.value;
+        setApiKey(newKey); // Update key in apiClient and localStorage
+        if (getApiKey()) {
+            uiElements.apiKeyStatus.textContent = 'API Key saved.';
+            uiElements.apiKeyStatus.className = 'valid';
+            enableApiControls(true);
+        } else {
+            uiElements.apiKeyStatus.textContent = 'Key not set. Features disabled.';
+            uiElements.apiKeyStatus.className = '';
+            enableApiControls(false);
+        }
+    });
+}
 
 /**
  * Sets up the handler for the sidebar toggle button.
