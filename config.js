@@ -5,6 +5,8 @@ export const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions
 export const DEFAULT_MODEL = "google/gemma-2-9b-it:free"; // Default model
 export const MAX_CONTEXT_WORDS = 500; // Limit context sent to API
 
+export const OPENROUTER_API_KEY = 'YOUR_API_KEY_PLACEHOLDER'; // This will be replaced by GitHub Actions
+
 // Element IDs (Optional - can query directly in modules if preferred)
 // export const EDITOR_CONTENT_ID = 'editor-content';
 // export const TOOLBAR_ID = 'formatting-toolbar';

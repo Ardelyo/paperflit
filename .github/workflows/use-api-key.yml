@@ -1,17 +1,41 @@
-name: Use API Key Secret  # Workflow name (visible in GitHub Actions UI)
+name: Build and Deploy with API Key
 
 on:
-  workflow_dispatch: # Allows you to manually trigger this workflow from the Actions tab in GitHub
+  push:
+    branches:
+      - main # Trigger deployment when changes are pushed to the main branch
+  workflow_dispatch: # Allow manual triggering
 
 jobs:
-  example_job:
-    runs-on: ubuntu-latest # Specifies the type of machine to run the job on
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push to gh-pages branch
 
     steps:
-      - name: Access API Key Secret
+      - name: Checkout code
+        uses: actions/checkout@v4 # Checks out your repository code
+
+      - name: Inject API Key into config.js
         run: |
-          echo "Your API Key is: ${{ secrets.OPENROUTER_API_KEY }}"
-          # In a real workflow, you would use the API key here for your actual task,
-          # such as deploying your application or calling an API.
-          # For example:
-          # npm install --apikey=${{ secrets.OPENROUTER_API_KEY }}
+          # Check if the secret is available
+          if [ -z "${{ secrets.OPENROUTER_API_KEY }}" ]; then
+            echo "Error: OPENROUTER_API_KEY secret not found!"
+            exit 1
+          fi
+          # Use sed to replace the placeholder. Note the use of single quotes around the placeholder
+          # and double quotes around the secret to handle potential special characters in the key.
+          sed -i "s|'YOUR_API_KEY_PLACEHOLDER'|\"${{ secrets.OPENROUTER_API_KEY }}\"|g" config.js
+          echo "API Key injected into config.js"
+        env:
+          API_KEY: ${{ secrets.OPENROUTER_API_KEY }} # Make secret available as env var if needed elsewhere
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Provided by GitHub automatically
+          publish_dir: . # Deploy the entire root directory
+          # Optional: specify branch if not gh-pages
+          # publish_branch: gh-pages
+          # Optional: Add a commit message
+          # commit_message: 'Deploy: Inject API Key and update site'

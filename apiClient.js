@@ -4,10 +4,11 @@ import {
     OPENROUTER_API_URL,
     DEFAULT_MODEL,
     MAX_CONTEXT_WORDS,
-    API_KEY_STORAGE_KEY
+    API_KEY_STORAGE_KEY, // Keep for now, might remove later if setApiKey is fully removed
+    OPENROUTER_API_KEY // Import the key from config
 } from './config.js';
 
-let openRouterApiKey = localStorage.getItem(API_KEY_STORAGE_KEY) || null;
+// let openRouterApiKey = localStorage.getItem(API_KEY_STORAGE_KEY) || null; // Key now comes from config.js
 let siteUrl = ''; // Will be read from DOM on init or passed
 let siteName = ''; // Will be read from DOM on init or passed
 
@@ -15,30 +16,19 @@ let siteName = ''; // Will be read from DOM on init or passed
  * Sets the OpenRouter API key, stores it in localStorage, and updates the module state.
  * @param {string} key - The API key.
  */
-export function setApiKey(key) {
-    if (key && key.trim().length > 0) {
-        openRouterApiKey = key.trim();
-        localStorage.setItem(API_KEY_STORAGE_KEY, openRouterApiKey);
-        console.log("API Key set and stored.");
-    } else {
-        openRouterApiKey = null;
-        localStorage.removeItem(API_KEY_STORAGE_KEY);
-        console.log("API Key removed.");
-    }
-}
+// export function setApiKey(key) { ... } // Removed: Key is now set during build
 
 /**
  * Retrieves the current OpenRouter API key from module state.
  * @returns {string|null} The API key or null if not set.
  */
 export function getApiKey() {
-    // Check for environment variable first
-    if (process && process.env.OPENROUTER_API_KEY) {
-        console.log("API Key loaded from environment variable.");
-        return process.env.OPENROUTER_API_KEY;
+    // Return the key directly from the imported config variable
+    if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === 'YOUR_API_KEY_PLACEHOLDER') {
+        console.warn("API Key not found or is placeholder in config.js. Ensure build step ran.");
+        return null;
     }
-    // Fallback to localStorage if environment variable is not set
-    return openRouterApiKey;
+    return OPENROUTER_API_KEY;
 }
 
 /**
@@ -64,7 +54,8 @@ export function initializeSiteContext(urlElementId = 'site-url', nameElementId =
  * @returns {Promise<{results?: string[], error?: string}>} A promise resolving to an object with results or an error message.
  */
 export async function fetchAIResponse(promptType, context = '', customInstruction = '') {
-    if (!openRouterApiKey) {
+    const apiKey = getApiKey(); // Use the getter function
+    if (!apiKey) {
         console.error("OpenRouter API Key is not set.");
         return { error: "API Key not set." };
     }
@@ -158,7 +149,7 @@ export async function fetchAIResponse(promptType, context = '', customInstructio
         const response = await fetch(OPENROUTER_API_URL, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${openRouterApiKey}`,
+                "Authorization": `Bearer ${apiKey}`, // Use the retrieved key
                 "Content-Type": "application/json",
                 "HTTP-Referer": siteUrl, // Use stored siteUrl
                 "X-Title": siteName,     // Use stored siteName
