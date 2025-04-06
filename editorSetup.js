@@ -163,7 +163,7 @@ export function initializeEditor(editorElementId, toolbarElementId, wordCountEle
                 CharacterCount // Add character count extension
             ],
             content: `
-                <h1>Welcome to Magic Text Editor!</h1>
+                <h1>Welcome to Paperflit!</h1>
                 <p>Start typing your masterpiece here. Use the toolbar above for formatting.</p>
                 <p>Toggle the <strong>AI Tools sidebar</strong> using the menu button on the right to access powerful writing assistance features.</p>
                 <p><em>Remember to enter your OpenRouter API key in the sidebar to enable AI tools.</em></p>

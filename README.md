@@ -8,7 +8,7 @@
 [![Powered by](https://img.shields.io/badge/AI%20Powered%20by-OpenRouter-purple.svg)](https://openrouter.ai/)
 [![Uses](https://img.shields.io/badge/Editor-TipTap-lightblue.svg)](https://tiptap.dev/)
 
-Sebuah Editor Teks Eksperimental dengan Bantuan AI dan Format Lengkap, Calon Komponen untuk Platform Masa Depan.
+Paperflit: An AI-powered writing space made by Ardelyo. (Experimental)
 
 ---
 

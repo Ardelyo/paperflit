@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<![CDATA[<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Text Editor - Refactored</title>
+    <title>Paperflit - Refactored</title>
 
     <!-- Google Fonts (Keep) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -108,136 +108,170 @@
 
         <!-- AI Tools Sidebar -->
         <aside class="sidebar">
-            <h2>AI Tools</h2>
+            <!-- Tab Navigation -->
+            <div class="sidebar-tabs">
+                <button class="tab-button active" data-tab="ai-tools">
+                    <span class="material-icons">auto_awesome</span>
+                    AI Tools
+                </button>
+                <button class="tab-button" data-tab="notes">
+                    <span class="material-icons">note</span>
+                    Notes
+                </button>
+            </div>
 
-            <!-- API Key Section -->
-            <div class="tool-group api-key-group">
-                <label for="api-key">OpenRouter API Key</label>
-                <div class="api-key-input-wrapper">
-                    <input type="password" id="api-key" placeholder="Enter your key">
-                    <button id="save-api-key-btn" class="material-button-icon" title="Save Key">
-                        <span class="material-icons">save</span>
+            <!-- AI Tools Tab Content -->
+            <div class="tab-content active" id="ai-tools">
+                <!-- API Key Section -->
+                <div class="tool-group api-key-group">
+                    <label for="api-key">OpenRouter API Key</label>
+                    <div class="api-key-input-wrapper">
+                        <input type="password" id="api-key" placeholder="Enter your key">
+                        <button id="save-api-key-btn" class="material-button-icon" title="Save Key">
+                            <span class="material-icons">save</span>
+                        </button>
+                    </div>
+                     <small id="api-key-status">Key not set. Features disabled.</small>
+                     <small>Get a key at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></small>
+                     <!-- Hidden inputs for API context -->
+                     <input type="hidden" id="site-url" value="http://localhost:8080"> <!-- Adjust if needed -->
+                     <input type="hidden" id="site-name" value="Paperflit">
+                </div>
+
+                <!-- === Core AI Tools === -->
+                <div class="tool-group">
+                    <label>Continuations</label>
+                    <button id="get-continuations-btn" class="material-button" disabled>
+                        <span class="material-icons">auto_awesome</span> Continue
+                    </button>
+                    <div id="continuations-output" class="output-area"></div>
+                </div>
+
+                <div class="tool-group">
+                    <label for="custom-prompt">Custom Prompt</label>
+                    <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier" disabled>
+                    <button id="use-custom-prompt-btn" class="material-button" disabled>
+                        <span class="material-icons">edit_note</span> Use Prompt
+                    </button>
+                     <div id="custom-prompt-output" class="output-area"></div>
+                </div>
+
+                <div class="tool-group">
+                     <label>Prompt Suggestions</label>
+                    <button id="get-prompts-btn" class="material-button" disabled>
+                       <span class="material-icons">lightbulb</span> Suggest Prompts
+                    </button>
+                    <div id="prompts-output" class="output-area"></div>
+                </div>
+
+                <!-- === Refinement & Style Tools Section === -->
+                <h3>Refinement & Style (Select Text)</h3>
+                <div class="tool-group">
+                    <label for="tone-select">Change Tone</label>
+                    <select id="tone-select" disabled>
+                        <option value="more formal">More Formal</option>
+                        <option value="more casual">More Casual</option>
+                        <option value="mysterious">Mysterious</option>
+                        <option value="humorous">Humorous</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="sarcastic">Sarcastic</option>
+                        <option value="optimistic">Optimistic</option>
+                        <option value="pessimistic">Pessimistic</option>
+                    </select>
+                    <button id="change-tone-btn" class="material-button" disabled>
+                        <span class="material-icons">sync_alt</span> Change Tone
+                    </button>
+                    <div id="tone-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                    <button id="show-dont-tell-btn" class="material-button" title="Rewrite selection to show emotion/state through actions/description" disabled>
+                        <span class="material-icons">visibility</span> Show, Don't Tell
+                    </button>
+                    <div id="show-dont-tell-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                    <button id="simplify-btn" class="material-button" title="Rewrite selection using simpler language" disabled>
+                        <span class="material-icons">compress</span> Simplify Text
+                    </button>
+                    <div id="simplify-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                    <button id="elevate-btn" class="material-button" title="Rewrite selection with more sophisticated phrasing" disabled>
+                        <span class="material-icons">upgrade</span> Elevate Phrasing
+                    </button>
+                    <div id="elevate-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                    <button id="concise-btn" class="material-button" title="Make selection shorter and more direct" disabled>
+                         <span class="material-icons">vertical_align_center</span> Make Concise
+                    </button>
+                    <div id="concise-output" class="output-area"></div>
+                </div>
+
+                <!-- === Idea Generation & Expansion Section === -->
+                <h3>Idea Generation</h3>
+                 <div class="tool-group">
+                    <label>Expand (Select Text)</label>
+                    <button id="expand-btn" class="material-button" title="Expand on the selected idea" disabled>
+                        <span class="material-icons">expand_content</span> Expand Idea
+                    </button>
+                    <div id="expand-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                    <label>Sensory Details (Select Text)</label>
+                    <button id="sensory-btn" class="material-button" title="Add sensory details (sight, sound, smell, etc.)" disabled>
+                         <span class="material-icons">hearing</span> Add Sensory Details
+                    </button>
+                    <div id="sensory-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                     <label>What If? (Uses Context)</label>
+                    <button id="whatif-btn" class="material-button" title="Suggest alternative plot points or character decisions" disabled>
+                         <span class="material-icons">help_outline</span> Suggest "What Ifs"
+                    </button>
+                    <div id="whatif-output" class="output-area"></div>
+                </div>
+
+                <!-- === Analysis & Structure Section === -->
+                <h3>Analysis & Structure</h3>
+                <div class="tool-group">
+                    <label>Summarize (Select Text)</label>
+                    <button id="summarize-btn" class="material-button" title="Summarize the selected text" disabled>
+                         <span class="material-icons">summarize</span> Summarize Selection
+                    </button>
+                    <div id="summarize-output" class="output-area"></div>
+                </div>
+                <div class="tool-group">
+                     <label>Suggest Titles (Uses Full Text)</label>
+                    <button id="headline-btn" class="material-button" title="Suggest potential titles for the document" disabled>
+                         <span class="material-icons">title</span> Suggest Titles
+                    </button>
+                    <div id="headline-output" class="output-area"></div>
+                </div>
+            </div>
+
+            <!-- Notes Tab Content -->
+            <div class="tab-content notes-tab-content" id="notes">
+                <div class="notes-controls">
+                    <button id="add-note-btn" class="material-button">
+                        <span class="material-icons">add_circle_outline</span> New Note
                     </button>
                 </div>
-                 <small id="api-key-status">Key not set. Features disabled.</small>
-                 <small>Get a key at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></small>
-                 <!-- Hidden inputs for API context -->
-                 <input type="hidden" id="site-url" value="http://localhost:8080"> <!-- Adjust if needed -->
-                 <input type="hidden" id="site-name" value="Magic Text Editor">
+                <div id="notes-list" class="notes-list">
+                    <!-- Saved notes will be listed here -->
+                    <p class="no-notes-message">No notes yet. Create one!</p> <!-- Show when list is empty -->
+                </div>
+                <!-- Note Editor Area (Initially Hidden or managed dynamically) -->
+                <div id="note-editor-container" class="note-editor-container" style="display: none;">
+                    <input type="text" id="note-title-input" placeholder="Note Title">
+                    <div id="note-body-editor">
+                        <!-- Rich text editor instance will go here -->
+                    </div>
+                    <button id="close-note-editor-btn" class="material-button-text">Close</button>
+                </div>
             </div>
 
-            <!-- === Core AI Tools === -->
-            <div class="tool-group">
-                <label>Continuations</label>
-                <button id="get-continuations-btn" class="material-button" disabled>
-                    <span class="material-icons">auto_awesome</span> Continue
-                </button>
-                <div id="continuations-output" class="output-area"></div>
-            </div>
-
-            <div class="tool-group">
-                <label for="custom-prompt">Custom Prompt</label>
-                <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier" disabled>
-                <button id="use-custom-prompt-btn" class="material-button" disabled>
-                    <span class="material-icons">edit_note</span> Use Prompt
-                </button>
-                 <div id="custom-prompt-output" class="output-area"></div>
-            </div>
-
-            <div class="tool-group">
-                 <label>Prompt Suggestions</label>
-                <button id="get-prompts-btn" class="material-button" disabled>
-                   <span class="material-icons">lightbulb</span> Suggest Prompts
-                </button>
-                <div id="prompts-output" class="output-area"></div>
-            </div>
-
-            <!-- === Refinement & Style Tools Section === -->
-            <h3>Refinement & Style (Select Text)</h3>
-            <div class="tool-group">
-                <label for="tone-select">Change Tone</label>
-                <select id="tone-select" disabled>
-                    <option value="more formal">More Formal</option>
-                    <option value="more casual">More Casual</option>
-                    <option value="mysterious">Mysterious</option>
-                    <option value="humorous">Humorous</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="sarcastic">Sarcastic</option>
-                    <option value="optimistic">Optimistic</option>
-                    <option value="pessimistic">Pessimistic</option>
-                </select>
-                <button id="change-tone-btn" class="material-button" disabled>
-                    <span class="material-icons">sync_alt</span> Change Tone
-                </button>
-                <div id="tone-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                <button id="show-dont-tell-btn" class="material-button" title="Rewrite selection to show emotion/state through actions/description" disabled>
-                    <span class="material-icons">visibility</span> Show, Don't Tell
-                </button>
-                <div id="show-dont-tell-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                <button id="simplify-btn" class="material-button" title="Rewrite selection using simpler language" disabled>
-                    <span class="material-icons">compress</span> Simplify Text
-                </button>
-                <div id="simplify-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                <button id="elevate-btn" class="material-button" title="Rewrite selection with more sophisticated phrasing" disabled>
-                    <span class="material-icons">upgrade</span> Elevate Phrasing
-                </button>
-                <div id="elevate-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                <button id="concise-btn" class="material-button" title="Make selection shorter and more direct" disabled>
-                     <span class="material-icons">vertical_align_center</span> Make Concise
-                </button>
-                <div id="concise-output" class="output-area"></div>
-            </div>
-
-            <!-- === Idea Generation & Expansion Section === -->
-            <h3>Idea Generation</h3>
-             <div class="tool-group">
-                <label>Expand (Select Text)</label>
-                <button id="expand-btn" class="material-button" title="Expand on the selected idea" disabled>
-                    <span class="material-icons">expand_content</span> Expand Idea
-                </button>
-                <div id="expand-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                <label>Sensory Details (Select Text)</label>
-                <button id="sensory-btn" class="material-button" title="Add sensory details (sight, sound, smell, etc.)" disabled>
-                     <span class="material-icons">hearing</span> Add Sensory Details
-                </button>
-                <div id="sensory-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                 <label>What If? (Uses Context)</label>
-                <button id="whatif-btn" class="material-button" title="Suggest alternative plot points or character decisions" disabled>
-                     <span class="material-icons">help_outline</span> Suggest "What Ifs"
-                </button>
-                <div id="whatif-output" class="output-area"></div>
-            </div>
-
-            <!-- === Analysis & Structure Section === -->
-            <h3>Analysis & Structure</h3>
-            <div class="tool-group">
-                <label>Summarize (Select Text)</label>
-                <button id="summarize-btn" class="material-button" title="Summarize the selected text" disabled>
-                     <span class="material-icons">summarize</span> Summarize Selection
-                </button>
-                <div id="summarize-output" class="output-area"></div>
-            </div>
-            <div class="tool-group">
-                 <label>Suggest Titles (Uses Full Text)</label>
-                <button id="headline-btn" class="material-button" title="Suggest potential titles for the document" disabled>
-                     <span class="material-icons">title</span> Suggest Titles
-                </button>
-                <div id="headline-output" class="output-area"></div>
-            </div>
-
-            <!-- === Footer === -->
+            <!-- Sidebar Footer stays at the bottom -->
             <div class="sidebar-footer">
                  <button id="share-btn" class="material-button-text">Export</button> <!-- Changed from Share -->
                  <button id="reset-btn" class="material-button-text">Start Over</button>
@@ -250,3 +284,4 @@
     <script type="module" src="main.js" defer></script>
 </body>
 </html>
+]]>
