@@ -108,19 +108,10 @@
 
         <!-- AI Tools Sidebar -->
         <aside class="sidebar">
-            <!-- Tab Buttons -->
-            <div class="sidebar-tabs">
-                <button class="sidebar-tab active" data-tab="ai-tools-panel">AI Tools</button>
-                <button class="sidebar-tab" data-tab="notes-panel">Notes</button>
-            </div>
+            <h2>AI Tools</h2>
 
-            <!-- Tab Content Panels -->
-            <div class="sidebar-content">
-                <!-- AI Tools Panel (Initially Active) -->
-                <div id="ai-tools-panel" class="sidebar-panel active">
-                    <h2>AI Tools</h2>
-                    <!-- API Key Section -->
-                    <div class="tool-group api-key-group">
+            <!-- API Key Section -->
+            <div class="tool-group api-key-group">
                 <label for="api-key">OpenRouter API Key</label>
                 <div class="api-key-input-wrapper">
                     <input type="password" id="api-key" placeholder="Enter your key">
@@ -244,128 +235,7 @@
                      <span class="material-icons">title</span> Suggest Titles
                 </button>
                 <div id="headline-output" class="output-area"></div>
-                    </div>
-                    <!-- ... (Keep all existing AI tool groups here) ... -->
-
-                     <!-- === Core AI Tools === -->
-                    <div class="tool-group">
-                        <label>Continuations</label>
-                        <button id="get-continuations-btn" class="material-button" disabled>
-                            <span class="material-icons">auto_awesome</span> Continue
-                        </button>
-                        <div id="continuations-output" class="output-area"></div>
-                    </div>
-
-                    <div class="tool-group">
-                        <label for="custom-prompt">Custom Prompt</label>
-                        <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier" disabled>
-                        <button id="use-custom-prompt-btn" class="material-button" disabled>
-                            <span class="material-icons">edit_note</span> Use Prompt
-                        </button>
-                         <div id="custom-prompt-output" class="output-area"></div>
-                    </div>
-
-                    <div class="tool-group">
-                         <label>Prompt Suggestions</label>
-                        <button id="get-prompts-btn" class="material-button" disabled>
-                           <span class="material-icons">lightbulb</span> Suggest Prompts
-                        </button>
-                        <div id="prompts-output" class="output-area"></div>
-                    </div>
-
-                    <!-- === Refinement & Style Tools Section === -->
-                    <h3>Refinement & Style (Select Text)</h3>
-                    <div class="tool-group">
-                        <label for="tone-select">Change Tone</label>
-                        <select id="tone-select" disabled>
-                            <option value="more formal">More Formal</option>
-                            <option value="more casual">More Casual</option>
-                            <option value="mysterious">Mysterious</option>
-                            <option value="humorous">Humorous</option>
-                            <option value="urgent">Urgent</option>
-                            <option value="sarcastic">Sarcastic</option>
-                            <option value="optimistic">Optimistic</option>
-                            <option value="pessimistic">Pessimistic</option>
-                        </select>
-                        <button id="change-tone-btn" class="material-button" disabled>
-                            <span class="material-icons">sync_alt</span> Change Tone
-                        </button>
-                        <div id="tone-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                        <button id="show-dont-tell-btn" class="material-button" title="Rewrite selection to show emotion/state through actions/description" disabled>
-                            <span class="material-icons">visibility</span> Show, Don't Tell
-                        </button>
-                        <div id="show-dont-tell-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                        <button id="simplify-btn" class="material-button" title="Rewrite selection using simpler language" disabled>
-                            <span class="material-icons">compress</span> Simplify Text
-                        </button>
-                        <div id="simplify-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                        <button id="elevate-btn" class="material-button" title="Rewrite selection with more sophisticated phrasing" disabled>
-                            <span class="material-icons">upgrade</span> Elevate Phrasing
-                        </button>
-                        <div id="elevate-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                        <button id="concise-btn" class="material-button" title="Make selection shorter and more direct" disabled>
-                             <span class="material-icons">vertical_align_center</span> Make Concise
-                        </button>
-                        <div id="concise-output" class="output-area"></div>
-                    </div>
-
-                    <!-- === Idea Generation & Expansion Section === -->
-                    <h3>Idea Generation</h3>
-                     <div class="tool-group">
-                        <label>Expand (Select Text)</label>
-                        <button id="expand-btn" class="material-button" title="Expand on the selected idea" disabled>
-                            <span class="material-icons">expand_content</span> Expand Idea
-                        </button>
-                        <div id="expand-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                        <label>Sensory Details (Select Text)</label>
-                        <button id="sensory-btn" class="material-button" title="Add sensory details (sight, sound, smell, etc.)" disabled>
-                             <span class="material-icons">hearing</span> Add Sensory Details
-                        </button>
-                        <div id="sensory-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                         <label>What If? (Uses Context)</label>
-                        <button id="whatif-btn" class="material-button" title="Suggest alternative plot points or character decisions" disabled>
-                             <span class="material-icons">help_outline</span> Suggest "What Ifs"
-                        </button>
-                        <div id="whatif-output" class="output-area"></div>
-                    </div>
-
-                    <!-- === Analysis & Structure Section === -->
-                    <h3>Analysis & Structure</h3>
-                    <div class="tool-group">
-                        <label>Summarize (Select Text)</label>
-                        <button id="summarize-btn" class="material-button" title="Summarize the selected text" disabled>
-                             <span class="material-icons">summarize</span> Summarize Selection
-                        </button>
-                        <div id="summarize-output" class="output-area"></div>
-                    </div>
-                    <div class="tool-group">
-                         <label>Suggest Titles (Uses Full Text)</label>
-                        <button id="headline-btn" class="material-button" title="Suggest potential titles for the document" disabled>
-                             <span class="material-icons">title</span> Suggest Titles
-                        </button>
-                        <div id="headline-output" class="output-area"></div>
-                    </div>
-                </div> <!-- End AI Tools Panel -->
-
-                <!-- Notes Panel -->
-                <div id="notes-panel" class="sidebar-panel">
-                    <h2>Notes</h2>
-                    <textarea id="notes-textarea" placeholder="Type your notes here..."></textarea>
-                </div> <!-- End Notes Panel -->
-
-            </div> <!-- End Sidebar Content -->
+            </div>
 
             <!-- === Footer === -->
             <div class="sidebar-footer">

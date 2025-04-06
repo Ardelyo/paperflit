@@ -18,10 +18,6 @@ const uiElements = {
     customPromptInput: null,
     resetBtn: null,
     shareBtn: null,
-    // Sidebar Tabs
-    sidebarTabsContainer: null,
-    sidebarTabs: [],
-    sidebarPanels: [],
 };
 
 // IDs of AI tool buttons and their corresponding output areas
@@ -382,49 +378,5 @@ export function initializeUIHandlers(currentEditorInstance) {
         button.addEventListener('click', handleApiButtonClick);
     });
 
-    // Setup Sidebar Tabs
-    setupSidebarTabs();
-
     console.log("UI Handlers Initialized.");
-}
-
-/**
- * Sets up the handler for switching between sidebar tabs.
- */
-function setupSidebarTabs() {
-    uiElements.sidebarTabsContainer = document.querySelector('.sidebar-tabs');
-    if (!uiElements.sidebarTabsContainer) {
-        console.warn("Sidebar tabs container (.sidebar-tabs) not found.");
-        return;
-    }
-
-    uiElements.sidebarTabs = Array.from(uiElements.sidebarTabsContainer.querySelectorAll('.sidebar-tab'));
-    uiElements.sidebarPanels = Array.from(document.querySelectorAll('.sidebar-panel')); // Get all panels
-
-    uiElements.sidebarTabsContainer.addEventListener('click', (event) => {
-        const clickedTab = event.target.closest('.sidebar-tab');
-        if (!clickedTab || clickedTab.classList.contains('active')) {
-            return; // Click wasn't on a tab or it's already active
-        }
-
-        const targetPanelId = clickedTab.dataset.tab; // Get the target panel ID from data-tab attribute
-
-        // Remove active class from all tabs and panels
-        uiElements.sidebarTabs.forEach(tab => tab.classList.remove('active'));
-        uiElements.sidebarPanels.forEach(panel => panel.classList.remove('active'));
-
-        // Add active class to the clicked tab
-        clickedTab.classList.add('active');
-
-        // Add active class to the corresponding panel
-        const targetPanel = getElement(targetPanelId);
-        if (targetPanel) {
-            targetPanel.classList.add('active');
-        } else {
-            console.warn(`Sidebar panel with ID "${targetPanelId}" not found.`);
-        }
-    });
-
-    // Ensure initial state is correct (first tab/panel should have 'active' class in HTML)
-    console.log("Sidebar tabs handler initialized.");
 }
