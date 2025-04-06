@@ -1,0 +1,17 @@
+name: Use API Key Secret  # Workflow name (visible in GitHub Actions UI)
+
+on:
+  workflow_dispatch: # Allows you to manually trigger this workflow from the Actions tab in GitHub
+
+jobs:
+  example_job:
+    runs-on: ubuntu-latest # Specifies the type of machine to run the job on
+
+    steps:
+      - name: Access API Key Secret
+        run: |
+          echo "Your API Key is: ${{ secrets.OPENROUTER_API_KEY }}"
+          # In a real workflow, you would use the API key here for your actual task,
+          # such as deploying your application or calling an API.
+          # For example:
+          # npm install --apikey=${{ secrets.OPENROUTER_API_KEY }}
