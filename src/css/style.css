@@ -384,6 +384,21 @@ body {
     margin-top: auto; /* Push to bottom if editor content is short */
 }
 
+/* --- Keyframe Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes buttonHover {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.fade-in { animation: fadeIn 0.3s ease-in-out; }
+.button-hover { animation: buttonHover 0.5s ease-in-out; }
+
 /* --- Sidebar Styles --- */
 .sidebar {
     width: var(--app-sidebar-width); /* Use variable */
@@ -523,6 +538,11 @@ select {
                 box-shadow var(--app-transition-duration-short) var(--app-transition-easing);
     margin-top: 8px; margin-right: 8px; flex-wrap: nowrap; white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
+
+}
+.material-button:hover, .material-button-icon:hover, .material-button-text:hover {
+    animation: buttonHover 0.3s ease-in-out;
+
 }
 .material-button::before, .material-button-icon::before, .material-button-text::before { /* State Layer */
     content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;

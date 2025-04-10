@@ -1,4 +1,4 @@
-<![CDATA[<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,19 +16,15 @@
     <link rel="stylesheet" href="toolbar.css">
     <link rel="stylesheet" href="editorContent.css">
     <link rel="stylesheet" href="sidebarComponents.css">
-    <!-- <link rel="stylesheet" href="utilities.css"> --> <!-- Add if utilities.css was created -->
+    <link rel="stylesheet" href="src/css/style.css"> <!-- Added this -->
 
-    <!-- Remove old script tags -->
-    <!-- <script type="module" src="editor.js"></script> --> <!-- Removed -->
-    <!-- <script src="src/js/script.js" defer></script> --> <!-- Removed -->
 </head>
 <body>
     <!-- Main container for layout -->
-    <div class="editor-container"> <!-- Add class 'collapsed-sidebar' initially if desired -->
+    <div class="editor-container"> 
 
         <!-- Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="sidebar-toggle" title="Toggle AI Tools Sidebar">
-            <!-- Icon content (chevron_left/chevron_right) will be managed by uiHandlers.js -->
             <span class="material-icons">chevron_right</span>
         </button>
 
@@ -36,65 +32,30 @@
         <div class="main-editor">
             <!-- Formatting Toolbar -->
             <div id="formatting-toolbar" class="formatting-toolbar">
-                 <!-- Basic Formatting Buttons -->
-                 <button class="toolbar-button" data-command="toggleBold" title="Bold (Ctrl+B)">
-                    <span class="material-icons">format_bold</span>
-                 </button>
-                 <button class="toolbar-button" data-command="toggleItalic" title="Italic (Ctrl+I)">
-                    <span class="material-icons">format_italic</span>
-                 </button>
-                 <button class="toolbar-button" data-command="toggleUnderline" title="Underline (Ctrl+U)">
-                    <span class="material-icons">format_underlined</span>
-                 </button>
-                 <button class="toolbar-button" data-command="toggleStrike" title="Strikethrough">
-                    <span class="material-icons">format_strikethrough</span>
-                 </button>
+                 <!-- Buttons -->
+                 <button class="toolbar-button" data-command="toggleBold" title="Bold (Ctrl+B)"><span class="material-icons">format_bold</span></button>
+                 <button class="toolbar-button" data-command="toggleItalic" title="Italic (Ctrl+I)"><span class="material-icons">format_italic</span></button>
+                 <button class="toolbar-button" data-command="toggleUnderline" title="Underline (Ctrl+U)"><span class="material-icons">format_underlined</span></button>
+                 <button class="toolbar-button" data-command="toggleStrike" title="Strikethrough"><span class="material-icons">format_strikethrough</span></button>
                  <div class="toolbar-divider"></div>
-                 <!-- Heading/Paragraph -->
-                 <button class="toolbar-button" data-command="setParagraph" title="Paragraph">
-                    <span class="material-icons">notes</span>
-                 </button>
+                 <button class="toolbar-button" data-command="setParagraph" title="Paragraph"><span class="material-icons">notes</span></button>
                  <button class="toolbar-button" data-command="toggleHeading" data-level="1" title="Heading 1">H1</button>
                  <button class="toolbar-button" data-command="toggleHeading" data-level="2" title="Heading 2">H2</button>
                  <button class="toolbar-button" data-command="toggleHeading" data-level="3" title="Heading 3">H3</button>
                  <div class="toolbar-divider"></div>
-                 <!-- Lists -->
-                 <button class="toolbar-button" data-command="toggleBulletList" title="Bullet List">
-                    <span class="material-icons">format_list_bulleted</span>
-                 </button>
-                 <button class="toolbar-button" data-command="toggleOrderedList" title="Numbered List">
-                    <span class="material-icons">format_list_numbered</span>
-                 </button>
+                 <button class="toolbar-button" data-command="toggleBulletList" title="Bullet List"><span class="material-icons">format_list_bulleted</span></button>
+                 <button class="toolbar-button" data-command="toggleOrderedList" title="Numbered List"><span class="material-icons">format_list_numbered</span></button>
                  <div class="toolbar-divider"></div>
-                 <!-- Block Elements -->
-                  <button class="toolbar-button" data-command="toggleBlockquote" title="Blockquote">
-                    <span class="material-icons">format_quote</span>
-                 </button>
-                  <button class="toolbar-button" data-command="toggleCodeBlock" title="Code Block">
-                    <span class="material-icons">code</span>
-                 </button>
+                 <button class="toolbar-button" data-command="toggleBlockquote" title="Blockquote"><span class="material-icons">format_quote</span></button>
+                 <button class="toolbar-button" data-command="toggleCodeBlock" title="Code Block"><span class="material-icons">code</span></button>
                  <div class="toolbar-divider"></div>
-                 <!-- Alignment -->
-                  <button class="toolbar-button" data-command="setTextAlign" data-value="left" title="Align Left">
-                    <span class="material-icons">format_align_left</span>
-                 </button>
-                  <button class="toolbar-button" data-command="setTextAlign" data-value="center" title="Align Center">
-                    <span class="material-icons">format_align_center</span>
-                 </button>
-                  <button class="toolbar-button" data-command="setTextAlign" data-value="right" title="Align Right">
-                    <span class="material-icons">format_align_right</span>
-                 </button>
-                 <button class="toolbar-button" data-command="setTextAlign" data-value="justify" title="Align Justify">
-                    <span class="material-icons">format_align_justify</span>
-                 </button>
+                 <button class="toolbar-button" data-command="setTextAlign" data-value="left" title="Align Left"><span class="material-icons">format_align_left</span></button>
+                 <button class="toolbar-button" data-command="setTextAlign" data-value="center" title="Align Center"><span class="material-icons">format_align_center</span></button>
+                 <button class="toolbar-button" data-command="setTextAlign" data-value="right" title="Align Right"><span class="material-icons">format_align_right</span></button>
+                 <button class="toolbar-button" data-command="setTextAlign" data-value="justify" title="Align Justify"><span class="material-icons">format_align_justify</span></button>
                  <div class="toolbar-divider"></div>
-                 <!-- History -->
-                 <button class="toolbar-button" data-command="undo" title="Undo (Ctrl+Z)" disabled> <!-- Start disabled -->
-                    <span class="material-icons">undo</span>
-                 </button>
-                  <button class="toolbar-button" data-command="redo" title="Redo (Ctrl+Y)" disabled> <!-- Start disabled -->
-                    <span class="material-icons">redo</span>
-                 </button>
+                 <button class="toolbar-button" data-command="undo" title="Undo (Ctrl+Z)" disabled><span class="material-icons">undo</span></button>
+                 <button class="toolbar-button" data-command="redo" title="Redo (Ctrl+Y)" disabled><span class="material-icons">redo</span></button>
             </div>
 
             <!-- TipTap Editor Content Area -->
@@ -133,12 +94,11 @@
                     </div>
                      <small id="api-key-status">Key not set. Features disabled.</small>
                      <small>Get a key at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></small>
-                     <!-- Hidden inputs for API context -->
-                     <input type="hidden" id="site-url" value="http://localhost:8080"> <!-- Adjust if needed -->
+                     <input type="hidden" id="site-url" value="http://localhost:8080"> 
                      <input type="hidden" id="site-name" value="Paperflit">
                 </div>
 
-                <!-- === Core AI Tools === -->
+                <!-- AI Tools -->
                 <div class="tool-group">
                     <label>Continuations</label>
                     <button id="get-continuations-btn" class="material-button" disabled>
@@ -146,7 +106,6 @@
                     </button>
                     <div id="continuations-output" class="output-area"></div>
                 </div>
-
                 <div class="tool-group">
                     <label for="custom-prompt">Custom Prompt</label>
                     <input type="text" id="custom-prompt" placeholder="e.g., Make it scarier" disabled>
@@ -155,7 +114,6 @@
                     </button>
                      <div id="custom-prompt-output" class="output-area"></div>
                 </div>
-
                 <div class="tool-group">
                      <label>Prompt Suggestions</label>
                     <button id="get-prompts-btn" class="material-button" disabled>
@@ -163,8 +121,6 @@
                     </button>
                     <div id="prompts-output" class="output-area"></div>
                 </div>
-
-                <!-- === Refinement & Style Tools Section === -->
                 <h3>Refinement & Style (Select Text)</h3>
                 <div class="tool-group">
                     <label for="tone-select">Change Tone</label>
@@ -207,8 +163,6 @@
                     </button>
                     <div id="concise-output" class="output-area"></div>
                 </div>
-
-                <!-- === Idea Generation & Expansion Section === -->
                 <h3>Idea Generation</h3>
                  <div class="tool-group">
                     <label>Expand (Select Text)</label>
@@ -231,8 +185,6 @@
                     </button>
                     <div id="whatif-output" class="output-area"></div>
                 </div>
-
-                <!-- === Analysis & Structure Section === -->
                 <h3>Analysis & Structure</h3>
                 <div class="tool-group">
                     <label>Summarize (Select Text)</label>
@@ -258,30 +210,28 @@
                     </button>
                 </div>
                 <div id="notes-list" class="notes-list">
-                    <!-- Saved notes will be listed here -->
-                    <p class="no-notes-message">No notes yet. Create one!</p> <!-- Show when list is empty -->
+                    <p class="no-notes-message">No notes yet. Create one!</p> 
                 </div>
-                <!-- Note Editor Area (Initially Hidden or managed dynamically) -->
                 <div id="note-editor-container" class="note-editor-container" style="display: none;">
                     <input type="text" id="note-title-input" placeholder="Note Title">
-                    <div id="note-body-editor">
-                        <!-- Rich text editor instance will go here -->
-                    </div>
+                    <div id="note-body-editor"></div>
                     <button id="close-note-editor-btn" class="material-button-text">Close</button>
                 </div>
             </div>
 
-            <!-- Sidebar Footer stays at the bottom -->
+            <!-- Sidebar Footer -->
             <div class="sidebar-footer">
-                 <button id="share-btn" class="material-button-text">Export</button> <!-- Changed from Share -->
+                 <button id="share-btn" class="material-button-text">Export</button>
                  <button id="reset-btn" class="material-button-text">Start Over</button>
             </div>
 
-        </aside> <!-- End Sidebar -->
-    </div> <!-- End Editor Container -->
+        </aside> 
+    </div>
 
-    <!-- Main Application Script (ES Module) -->
+    <!-- Anime.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- Main Application Script -->
     <script type="module" src="main.js" defer></script>
 </body>
 </html>
-]]>
