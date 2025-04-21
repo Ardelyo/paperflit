@@ -13,6 +13,32 @@
     overflow: hidden; /* Important for containing positioned elements and rounded corners */
 }
 
+@media (max-width: 768px) {
+    .editor-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-container {
+        width: 100%;
+    }
+
+    .editor-container {
+        &.collapsed-sidebar {
+            .sidebar {
+                transform: translateX(100%); /* Slide out */
+                opacity: 0;
+                pointer-events: none; /* Prevent interaction when hidden */
+                width: 0; /* Collapse width */
+                padding: 0; /* Remove padding */
+                border-left: none; /* Remove border */
+                overflow: hidden; /* Hide content immediately */
+            }
+        }
+    }
+}
+
 /* --- Sidebar Toggle Button (Positioned relative to editor-container) --- */
 .sidebar-toggle {
     position: absolute;

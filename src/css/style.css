@@ -637,3 +637,27 @@ select {
 /* Add focus styles for better accessibility */
 *:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 2px; }
 *:focus:not(:focus-visible) { outline: none; }
+
+@media (max-width: 768px) {
+    #editor-content {
+        padding: 12px 24px; /* Reduced padding */
+    }
+
+    .ProseMirror p {
+        font-size: 1rem; /* Reduced font size */
+    }
+
+    .sidebar {
+        padding: 12px; /* Reduced padding */
+    }
+
+    .toolbar-button {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+    }
+
+    .toolbar-button .material-icons {
+        font-size: 18px;
+    }
+}
